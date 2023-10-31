@@ -1,0 +1,18 @@
+apiVersion: secrets-store.csi.x-k8s.io/v1
+kind: SecretProviderClass
+metadata:
+   name: azure-kvname-user-msi
+   namespace: mynamespace
+spec:
+   provider: azure
+   parameters:
+    usePodIdentity: "false"
+    useVMManagedIdentity: "true"         
+    userAssignedIdentityID: "CLIENT_ID"   
+    keyvaultName: "my-keyvault"      
+   secretObjects:
+     - secretName: k8s-secret-foo
+       type: Opaque
+       data:
+         - objectName: FOO
+           key: FOO
